@@ -125,11 +125,11 @@ async def index(request=None, exc=None):
 async def robots():
     return HTMLResponse(content=settings.robotsText, media_type="text/plain")
 
-@app.get("/heartbeat")
+@app.head("/heartbeat")
 async def heartbeat():
     r1 = random.randint(1000,9999)
     r2 = random.randint(1000,9999)
-    return {"status": "active 24/7", "beat_time": time.ctime(), f"{r1}+{r2}=": r1+r2}
+    logger.info(f"心跳维持中，没用码：{r1+r2}")
 
 @app.post("/")
 async def get_config():
