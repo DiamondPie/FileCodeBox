@@ -3,6 +3,7 @@
 # @File    : settings.py
 # @Software: PyCharm
 from pathlib import Path
+import json
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 data_root = BASE_DIR / "data"
@@ -72,10 +73,16 @@ DEFAULT_CONFIG = {
     "robotsText": "User-agent: *\nDisallow: /",
 }
 
+def load_secrets(file_name):
+    try:
+        with open(f'/etc/secrets/{file_name}', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
 
 class Settings:
     def __init__(self, defaults=None):
-        self.default_config = defaults or {}
+        self.default_config = load_secrets('settings.json') or defaults or {}
         self.user_config = {}
 
     def __getattr__(self, attr):
