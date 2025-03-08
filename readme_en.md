@@ -1,3 +1,15 @@
+# ⚠️ Statement
+
+**This repository is a forked and modified version of [vastsa/FileCodeBox](https://github.com/vastsa/FileCodeBox), please go to the repository to support the original author**
+
+I just translated it into English and deployed it onto [render.com](https://render.com) for everyone to use
+
+Of course, if you have any problems while using, please feel free to file an issue! I am glad to fix it 😊 *(in my spare time)*
+
+Below is the README content of the source repository
+
+---
+
 # FileCodeBox
 
 <div align="center">

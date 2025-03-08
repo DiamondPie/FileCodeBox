@@ -1,3 +1,15 @@
+# ⚠️ 声明
+
+**本仓库 fork 至 [vastsa/FileCodeBox](https://github.com/vastsa/FileCodeBox)且为其的魔改版本，请前往该仓库以支持原作者**
+
+本仓库的维护者只是将其翻译成了英文并部署至 [render.com](https://render.com) 供其他人使用
+
+当然，如果您在使用过程中有任何问题，请尽管提交issue！我会很乐意前去修复😊 *（在空闲时间内）*
+
+以下为源仓库的README内容
+
+---
+
 # FileCodeBox - 文件快递柜
 
 <div align="center">
@@ -18,7 +30,6 @@
 [English](./readme_en.md) | [部署教程](https://github.com/vastsa/FileCodeBox/wiki/部署教程) | [常见问题](https://github.com/vastsa/FileCodeBox/wiki/常见问题)
 
 </div>
-
 
 ## 🚀 更新计划
 - [ ] 切片上传，同文件秒传，断点续传
