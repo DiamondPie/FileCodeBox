@@ -74,10 +74,12 @@ DEFAULT_CONFIG = {
 }
 
 def load_secrets(file_name):
+    print("尝试读取配置文件...")
     try:
         with open(f'/etc/secrets/{file_name}', 'r') as file:
             return json.load(file)
     except FileNotFoundError:
+        print('未找到配置文件，使用默认设置')
         return {}
 
 class Settings:
