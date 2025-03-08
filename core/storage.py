@@ -76,7 +76,7 @@ class FileStorageInterface:
         """
         raise NotImplementedError
 
-    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> tuple[str, str]:
+    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> 'tuple[str, str]':
         """
         合并分片文件并返回文件路径和完整哈希值
         :param upload_id: 上传会话ID
@@ -150,7 +150,7 @@ class SystemFileStorage(FileStorageInterface):
         async with aiofiles.open(chunk_path, "wb") as f:
             await f.write(chunk_data)
 
-    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> tuple[str, str]:
+    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> 'tuple[str, str]':
         """
         合并本地文件系统的分片文件并返回文件路径和完整哈希值
         :param upload_id: 上传会话ID
@@ -311,7 +311,7 @@ class S3FileStorage(FileStorageInterface):
                 }
             )
 
-    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> tuple[str, str]:
+    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> 'tuple[str, str]':
         file_sha256 = hashlib.sha256()
         chunk_dir = str(Path(save_path).parent / "chunks" / upload_id)
         async with self.session.client('s3') as s3:
@@ -725,7 +725,7 @@ class WebDAVFileStorage(FileStorageInterface):
             """
             await session.request('PROPPATCH', propfind_url, headers=headers, data=body)
 
-    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> tuple[str, str]:
+    async def merge_chunks(self, upload_id: str, chunk_info: UploadChunk, save_path: str) -> 'tuple[str, str]':
         file_sha256 = hashlib.sha256()
         output_url = self._build_url(save_path)
         chunk_dir = str(Path(save_path).parent / "chunks" / upload_id)
