@@ -3,7 +3,7 @@
 # @File    : settings.py
 # @Software: PyCharm
 from pathlib import Path
-import json
+import json, os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 data_root = BASE_DIR / "data"
@@ -12,14 +12,14 @@ if not data_root.exists():
     data_root.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_CONFIG = {
-    "file_storage": "local",
+    "file_storage": "webdav",
     "storage_path": "",
-    "name": "文件快递柜 - FileCodeBox",
-    "description": "开箱即用的文件快传系统",
-    "notify_title": "系统通知",
-    "notify_content": '欢迎使用 FileCodeBox，本程序开源于 <a href="https://github.com/vastsa/FileCodeBox" target="_blank">Github</a> ，欢迎Star和Fork。',
-    "page_explain": "请勿上传或分享违法内容。根据《中华人民共和国网络安全法》、《中华人民共和国刑法》、《中华人民共和国治安管理处罚法》等相关规定。 传播或存储违法、违规内容，会受到相关处罚，严重者将承担刑事责任。本站坚决配合相关部门，确保网络内容的安全，和谐，打造绿色网络环境。",
-    "keywords": "FileCodeBox, 文件快递柜, 口令传送箱, 匿名口令分享文本, 文件",
+    "name": "FileCodeBox",
+    "description": "Sending files like delivering packages",
+    "notify_title": "Note",
+    "notify_content": "Welcome to DPFileBox，open-sourced on <a href=\"https://github.com/DiamondPie/FileCodeBox\" target=\"_blank\">Github</a>",
+    "page_explain": "",
+    "keywords": "FileCodeBox, file cabinet, password delivery box, anonymous password sharing text, text",
     "s3_access_key_id": "",
     "s3_secret_access_key": "",
     "s3_bucket_name": "",
@@ -39,15 +39,15 @@ DEFAULT_CONFIG = {
     "webdav_hostname": "",
     "webdav_root_path": "filebox_storage",
     "webdav_proxy": 0,
-    "admin_token": "FileCodeBox2023",
+    "admin_token": os.getenv('ADMIN_TOKEN'),
     "openUpload": 1,
-    "uploadSize": 1024 * 1024 * 10,
-    "expireStyle": ["day", "hour", "minute", "forever", "count"],
+    "uploadSize": 20971520,
+    "expireStyle": ["day", "hour", "minute", "count"],
     "uploadMinute": 1,
     "enableChunk": 0,
-    "webdav_url": "",
-    "webdav_password": "",
-    "webdav_username": "",
+    "webdav_url": "https://zeze.teracloud.jp/dav/",
+    "webdav_password": os.getenv('WEBDAV_PASSWORD', ''),
+    "webdav_username": "DiamondPie",
     "opacity": 0.9,
     "background": "",
     "uploadCount": 10,
@@ -56,21 +56,21 @@ DEFAULT_CONFIG = {
             "name": "2023",
             "key": "themes/2023",
             "author": "Lan",
-            "version": "1.0",
+            "version": "1.0"
         },
         {
             "name": "2024",
             "key": "themes/2024",
             "author": "Lan",
-            "version": "1.0",
-        },
+            "version": "1.0"
+        }
     ],
     "themesSelect": "themes/2024",
     "errorMinute": 1,
     "errorCount": 1,
     "port": 12345,
     "showAdminAddr": 0,
-    "robotsText": "User-agent: *\nDisallow: /",
+    "robotsText": "User-agent: *\nDisallow: /"
 }
 
 def load_secrets(file_name):
