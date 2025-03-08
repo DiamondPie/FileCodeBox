@@ -125,7 +125,7 @@ async def index(request=None, exc=None):
 async def robots():
     return HTMLResponse(content=settings.robotsText, media_type="text/plain")
 
-@app.get("tencent5884331881846574115.txt")
+@app.get("/tencent5884331881846574115.txt")
 # 不是哥们我刚提的新域名啊
 async def SBTencentBlockedMySite():
     return HTMLResponse(content='3323784016775587825', media_type='text/plain')
