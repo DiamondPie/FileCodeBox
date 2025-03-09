@@ -75,6 +75,7 @@ async def share_file(
 
     file_storage: FileStorageInterface = storages[settings.file_storage]()
     await file_storage.save_file(file, save_path)
+    print(f"file_storage.save_file({file}, {save_path})")
 
     await create_file_code(
         code=code,
@@ -94,9 +95,9 @@ async def share_file(
 async def get_code_file_by_code(code, check=True):
     file_code = await FileCodes.filter(code=code).first()
     if not file_code:
-        return False, "文件不存在"
+        return False, "File does not exist"
     if await file_code.is_expired() and check:
-        return False, "文件已过期"
+        return False, "File was outdated"
     return True, file_code
 
 
@@ -149,7 +150,7 @@ async def download_file(key: str, code: str, ip: str = Depends(ip_limit["error"]
         ip_limit["error"].add_ip(ip)
     has, file_code = await get_code_file_by_code(code, False)
     if not has:
-        return APIResponse(code=404, detail="文件不存在")
+        return APIResponse(code=404, detail="File does not exist")
     return (
         APIResponse(detail=file_code.text)
         if file_code.text

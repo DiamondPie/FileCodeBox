@@ -124,7 +124,7 @@ class SystemFileStorage(FileStorageInterface):
     async def get_file_response(self, file_code: FileCodes):
         file_path = self.root_path / await file_code.get_file_path()
         if not file_path.exists():
-            return APIResponse(code=404, detail="文件已过期删除")
+            return APIResponse(code=404, detail="File was outdated删除")
         filename = f"{file_code.prefix}{file_code.suffix}"
         encoded_filename = quote(filename, safe='')
         content_disposition = f"attachment; filename*=UTF-8''{encoded_filename}"
@@ -555,7 +555,7 @@ class OpenDALFileStorage(FileStorageInterface):
             )
         except Exception as e:
             logger.info(e)
-            raise HTTPException(status_code=404, detail="文件已过期删除")
+            raise HTTPException(status_code=404, detail="File was outdated删除")
 
 
 class WebDAVFileStorage(FileStorageInterface):
@@ -570,6 +570,7 @@ class WebDAVFileStorage(FileStorageInterface):
             self._initialized = True
 
     def _build_url(self, path: str) -> str:
+        path = path.replace('\\', '/')
         encoded_path = quote(str(path).lstrip("/"))
         return f"{self.base_url}{encoded_path}"
 

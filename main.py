@@ -85,7 +85,7 @@ app.add_middleware(
 register_tortoise(
     app,
     config={
-        "connections": {"default": f"sqlite://{data_root}/filecodebox.db"},
+        "connections": {"default": f"mysql://DPFileBox_whygrowth:1b32ec1b08adbad3a8a5f06f01608d7376f1bf86@ica95.h.filess.io:3307/DPFileBox_whygrowth"},
         "apps": {
             "models": {
                 "models": ["apps.base.models"],

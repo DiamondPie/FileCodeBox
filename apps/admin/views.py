@@ -155,7 +155,7 @@ async def update_file(
 ):
     file_code = await FileCodes.filter(id=data.id).first()
     if not file_code:
-        raise HTTPException(status_code=404, detail="文件不存在")
+        raise HTTPException(status_code=404, detail="File does not exist")
     update_data = {}
 
     if data.code is not None and data.code != file_code.code:

@@ -30,7 +30,7 @@ class FileService:
     async def download_file(self, file_id: int):
         file_code = await FileCodes.filter(id=file_id).first()
         if not file_code:
-            raise HTTPException(status_code=404, detail="文件不存在")
+            raise HTTPException(status_code=404, detail="File does not exist")
         if file_code.text:
             return APIResponse(detail=file_code.text)
         else:
@@ -39,7 +39,7 @@ class FileService:
     async def share_local_file(self, item):
         local_file = LocalFileClass(item.filename)
         if not await local_file.exists():
-            raise HTTPException(status_code=404, detail="文件不存在")
+            raise HTTPException(status_code=404, detail="File does not exist")
 
         text = await local_file.read()
         expired_at, expired_count, used_count, code = await get_expire_info(
@@ -116,7 +116,7 @@ class LocalFileService:
         if await file.exists():
             await file.delete()
             return "删除成功"
-        raise HTTPException(status_code=404, detail="文件不存在")
+        raise HTTPException(status_code=404, detail="File does not exist")
 
 
 class LocalFileClass:

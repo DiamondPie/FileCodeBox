@@ -12,7 +12,7 @@ async def init_db():
     try:
         # 使用正确的Tortoise初始化配置格式
         db_config = {
-            "db_url": f"sqlite://{data_root}/filecodebox.db",
+            "db_url": f"mysql://DPFileBox_whygrowth:1b32ec1b08adbad3a8a5f06f01608d7376f1bf86@ica95.h.filess.io:3307/DPFileBox_whygrowth",
             "modules": {"models": ["apps.base.models"]},
             "use_tz": False,
             "timezone": "Asia/Shanghai"
@@ -23,7 +23,7 @@ async def init_db():
         # 创建migrations表
         await Tortoise.get_connection("default").execute_script("""
             CREATE TABLE IF NOT EXISTS migrates (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY AUTO_INCREMENT,
                 migration_file VARCHAR(255) NOT NULL UNIQUE,
                 executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -55,7 +55,7 @@ async def execute_migrations():
 
             # 检查是否已执行
             executed = await Tortoise.get_connection("default").execute_query(
-                "SELECT id FROM migrates WHERE migration_file = ?", [file_name]
+                "SELECT id FROM migrates WHERE migration_file = %s", [file_name]
             )
 
             if not executed[1]:
@@ -68,7 +68,7 @@ async def execute_migrations():
                         await migration_module.migrate()
                         # 记录执行
                         await Tortoise.get_connection("default").execute_query(
-                            "INSERT INTO migrates (migration_file) VALUES (?)",
+                            "INSERT INTO migrates (migration_file) VALUES (%s)",
                             [file_name]
                         )
                         logger.info(f"迁移完成: {file_name}")
