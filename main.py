@@ -19,7 +19,7 @@ from apps.base.views import share_api, chunk_api
 from apps.admin.views import admin_api
 from core.database import init_db
 from core.response import APIResponse
-from core.settings import data_root, settings, BASE_DIR, DEFAULT_CONFIG
+from core.settings import data_root, settings, BASE_DIR, DEFAULT_CONFIG, mysql_url
 from core.tasks import delete_expire_files
 from core.logger import logger
 
@@ -85,7 +85,7 @@ app.add_middleware(
 register_tortoise(
     app,
     config={
-        "connections": {"default": f"mysql://DPFileBox_whygrowth:1b32ec1b08adbad3a8a5f06f01608d7376f1bf86@ica95.h.filess.io:3307/DPFileBox_whygrowth"},
+        "connections": {"default": mysql_url},
         "apps": {
             "models": {
                 "models": ["apps.base.models"],

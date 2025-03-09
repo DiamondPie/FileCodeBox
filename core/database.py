@@ -5,14 +5,14 @@ import os
 from tortoise import Tortoise
 
 from core.logger import logger
-from core.settings import data_root
+from core.settings import data_root, mysql_url
 
 
 async def init_db():
     try:
         # 使用正确的Tortoise初始化配置格式
         db_config = {
-            "db_url": f"mysql://DPFileBox_whygrowth:1b32ec1b08adbad3a8a5f06f01608d7376f1bf86@ica95.h.filess.io:3307/DPFileBox_whygrowth",
+            "db_url": mysql_url,
             "modules": {"models": ["apps.base.models"]},
             "use_tz": False,
             "timezone": "Asia/Shanghai"
