@@ -19,7 +19,7 @@ from apps.base.views import share_api, chunk_api
 from apps.admin.views import admin_api
 from core.database import init_db
 from core.response import APIResponse
-from core.settings import data_root, settings, BASE_DIR, DEFAULT_CONFIG, mysql_url
+from core.settings import data_root, settings, BASE_DIR, DEFAULT_CONFIG, mysql_password
 from core.tasks import delete_expire_files
 from core.logger import logger
 
@@ -85,13 +85,26 @@ app.add_middleware(
 register_tortoise(
     app,
     config={
-        "connections": {"default": mysql_url},
+        "connections": {
+            "default": {
+                "engine": "tortoise.backends.mysql",
+                "credentials": {
+                    "host": "ica95.h.filess.io",
+                    "port": "3307",
+                    "user": "DPFileBox_whygrowth",
+                    "password": mysql_password,
+                    "database": "DPFileBox_whygrowth",
+                    "minsize": 1,
+                    "maxsize": 3,
+                }
+            }
+        },
         "apps": {
             "models": {
                 "models": ["apps.base.models"],
                 "default_connection": "default",
-            },
-        },
+            }
+        }
     },
     generate_schemas=False,
     add_exception_handlers=True,

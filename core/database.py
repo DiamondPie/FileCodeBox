@@ -5,20 +5,38 @@ import os
 from tortoise import Tortoise
 
 from core.logger import logger
-from core.settings import data_root, mysql_url
+from core.settings import data_root, mysql_password
 
 
 async def init_db():
     try:
         # 使用正确的Tortoise初始化配置格式
         db_config = {
-            "db_url": mysql_url,
-            "modules": {"models": ["apps.base.models"]},
+            "connections": {
+                "default": {
+                    "engine": "tortoise.backends.mysql",
+                    "credentials": {
+                        "host": "ica95.h.filess.io",
+                        "port": "3307",
+                        "user": "DPFileBox_whygrowth",
+                        "password": mysql_password,
+                        "database": "DPFileBox_whygrowth",
+                        "minsize": 1,
+                        "maxsize": 3,
+                    }
+                }
+            },
+            "apps": {
+                "models": {
+                    "models": ["apps.base.models"],
+                    "default_connection": "default",
+                }
+            },
             "use_tz": False,
             "timezone": "Asia/Shanghai"
         }
 
-        await Tortoise.init(**db_config)
+        await Tortoise.init(config=db_config)
 
         # 创建migrations表
         await Tortoise.get_connection("default").execute_script("""

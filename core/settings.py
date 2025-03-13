@@ -7,7 +7,7 @@ import json, os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 data_root = BASE_DIR / "data"
-mysql_url = os.getenv('MYSQL_URL')
+mysql_password = os.getenv('MYSQL_PASSWORD')
 
 if not data_root.exists():
     data_root.mkdir(parents=True, exist_ok=True)
